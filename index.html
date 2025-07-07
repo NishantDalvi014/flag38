@@ -1,14 +1,14 @@
 <html>
   <h1>Hello -- </h1>
-<script>
-  window.addEventListener("message", function(event) {
-    console.log("Received:", event.data);
-    document.getElementById("status").textContent = "Got: " + event.data;
+  <script>
+    window.addEventListener("message", function(event) {
+      console.log("Received:", event.data);
+      document.getElementById("status").textContent = "Got: " + event.data;
 
-    if (event.data === "init") {
-      // ✅ This works: redirect back to a URL your app listens for.
-      window.location = "https://oak.hackstree.io/?message=init_complete";
-    }
-  });
+      if (event.data === "init") {
+        // ✅ This works: redirect back to a URL your app listens for.
+        window.location = "https://oak.hackstree.io/?message=init_complete";
+      }
+    });
 </script>
 </html>
