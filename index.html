@@ -7,20 +7,17 @@
     <h1>CTF Debug Page</h1>
     <p id="status">Waiting for message...</p>
 
-    <script>
-      window.addEventListener("message", function(event) {
-        console.log("Received message:", event.data);
+  <script>
+    window.addEventListener("message", function(event) {
+      console.log("Received:", event.data);
+      document.getElementById("status").textContent = "Got: " + event.data;
 
-        // Show exactly what you got
-        document.getElementById("status").textContent = "Got: " + JSON.stringify(event.data);
+      if (event.data === "init") {
+        // ✅ This works: redirect back to a URL your app listens for.
+        window.location = "https://oak.hackstree.io/?message=init_complete";
+      }
+    });
+  </script>
 
-        // If you got "init", reply with init_complete in JSON format
-        if (event.data === "init") {
-          const reply = JSON.stringify({ message: "init_complete" });
-          window.postMessage(reply, "*");
-          console.log("Sent back:", reply);
-        }
-      });
-    </script>
   </body>
 </html>
