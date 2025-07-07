@@ -1,19 +1,21 @@
+<!DOCTYPE html>
 <html>
-  <h1>Solved</h1>
-<script>
-  // Wait for "init" message from the app
-  window.addEventListener("message", function(event) {
-    console.log("Got message from app:", event.data);
+  <body>
+    <h1>CTF Debug Page</h1>
+    <p id="status">Waiting for message...</p>
 
-    // Always send JSON back
-    if (event.data === "init") {
-      window.postMessage(JSON.stringify({ message: "init_complete" }), "*");
+    <script>
+      window.addEventListener("message", function(event) {
+        console.log("Received message:", event.data);
+        document.getElementById("status").textContent = "Got: " + event.data;
 
-      // Now, you can also send "success"
-      setTimeout(() => {
-        window.postMessage(JSON.stringify({ message: "success" }), "*");
-      }, 1000);
-    }
-  });
-</script>
-<html>
+        // Optionally echo back to see if postMessage works both ways
+        if (event.data === "init") {
+          const reply = JSON.stringify({ message: "init_complete" });
+          window.postMessage(reply, "*");
+          console.log("Sent back:", reply);
+        }
+      });
+    </script>
+  </body>
+</html>
