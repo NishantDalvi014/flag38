@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>Hello boy</h1>
+    <h1>CTF Debug Page</h1>
+    <p id="status">Waiting for message...</p>
+
     <script>
-      // This sends "init_complete" to the Custom Tab
-      if (window.postMessage) {
-        window.postMessage("init_complete", "*");
-      }
+      window.addEventListener("message", function(event) {
+        console.log("Received message:", event.data);
+        document.getElementById("status").textContent = "Got: " + event.data;
+
+        // Optionally echo back to see if postMessage works both ways
+        if (event.data === "init") {
+          const reply = JSON.stringify({ message: "init_complete" });
+          window.postMessage(reply, "*");
+          console.log("Sent back:", reply);
+        }
+      });
     </script>
   </body>
 </html>
+
