@@ -1,14 +1,19 @@
 <html>
-  <h1>Hello ---</h1>
+  <h1>Solved</h1>
 <script>
+  // Wait for "init" message from the app
   window.addEventListener("message", function(event) {
-    console.log("Received:", event.data);
-    document.getElementById("status").textContent = "Got: " + event.data;
+    console.log("Got message from app:", event.data);
 
+    // Always send JSON back
     if (event.data === "init") {
-      // ✅ This works: redirect back to a URL your app listens for.
-      window.location = "https://oak.hackstree.io/?message=init_complete";
+      window.postMessage(JSON.stringify({ message: "init_complete" }), "*");
+
+      // Now, you can also send "success"
+      setTimeout(() => {
+        window.postMessage(JSON.stringify({ message: "success" }), "*");
+      }, 1000);
     }
   });
 </script>
-</html>
+<html>
