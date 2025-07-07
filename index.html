@@ -6,12 +6,12 @@ window.addEventListener("message", function (event) {
   window.port = event.ports[0];
 
   // Set up receiving messages from this port
-  window.port.onmessage = function(event) {
+  window.port.onmessage = function(event) { 
     if (event.data === "init") {
-      console.log("It's working ....");
+      console.log(event.origin);
 
-      window.port.postMessage(JSON.stringify({ message: 'init_complete' }));
-      window.port.postMessage(JSON.stringify({ message: 'success' }));
+      window.port.postMessage(JSON.stringify({ 'message': 'init_complete' }));
+      window.port.postMessage(JSON.stringify({ 'message': 'success' }));
       
     }
     else
