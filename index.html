@@ -1,29 +1,14 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>CTF Custom Tab</title>
-  </head>
-  <body>
-    <h1>CTF-Debug-Page</h1>
-    <p id="status">Waiting for message...</p>
-
+  <h1>Hello -- </h1>
 <script>
-  // Wait for "init" message from the app
   window.addEventListener("message", function(event) {
-    console.log("Got message from app:", event.data);
+    console.log("Received:", event.data);
+    document.getElementById("status").textContent = "Got: " + event.data;
 
-    // Always send JSON back
     if (event.data === "init") {
-      window.postMessage(JSON.stringify({ message: "init_complete" }), "*");
-
-      // Now, you can also send "success"
-      setTimeout(() => {
-        window.postMessage(JSON.stringify({ message: "success" }), "*");
-      }, 1000);
+      // ✅ This works: redirect back to a URL your app listens for.
+      window.location = "https://oak.hackstree.io/?message=init_complete";
     }
   });
 </script>
-
-  </body>
 </html>
-
