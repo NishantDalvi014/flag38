@@ -10,8 +10,8 @@ window.addEventListener("message", function (event) {
     if (event.data === "init") {
       console.log(event.origin);
 
-      window.port.postMessage(JSON.stringify({ 'message': 'init_complete' }));
-      window.port.postMessage(JSON.stringify({ 'message': 'success' }));
+      window.port.postMessage(JSON.stringify({ message: 'init_complete' }));
+      window.port.postMessage(JSON.stringify({ message: 'success' }));
       
     }
     else
